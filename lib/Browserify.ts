@@ -1,7 +1,11 @@
 import * as Path from "path";
-import * as Util from "./Util";
-import * as Jake from "./Jake";
-import { CommandInfo, ExtractFilesAndUpdateDependencyInfo } from "./Command";
+import * as Browserify from "browserify";
+
+import * as Jakets from "jakets/lib/Jakets";
+
+import * as Util from "jakets/lib/Util";
+import * as Jake from "jakets/Jake";
+import { CommandInfo, ExtractFilesAndUpdateDependencyInfo } from "jakets/lib/Command";
 
 let RawExec = Util.CreateNodeExec(
   "browserify",

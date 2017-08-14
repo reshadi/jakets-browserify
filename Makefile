@@ -2,28 +2,31 @@
 # setup jakets and basic tools
 #
 
-# SEARCH_JAKETS__DIRS += ../jakets
 SEARCH_JAKETS__DIRS += ./node_modules/jakets
-# SEARCH_JAKETS__DIRS += ./build/jakets
 JAKETS__MAKEFILES = $(patsubst %,%/Makefile,$(SEARCH_JAKETS__DIRS))
+JAKETS__MAKEFILE = $(word 1, $(wildcard $(JAKETS__MAKEFILES)))
+
+ifeq ("$(JAKETS__MAKEFILE)","")
+  ifneq ("$(shell npm --version 2> /dev/null)", "")
+    CMD_OUT += $(shell npm update --no-save)
+    $(info found npm)
+  endif
+endif
+
 JAKETS__MAKEFILE = $(word 1, $(wildcard $(JAKETS__MAKEFILES)))
 ifeq ("$(JAKETS__MAKEFILE)","")
   JAKETS__MAKEFILE = $(lastword $(JAKETS__MAKEFILES))
   JAKETS__DIR = $(dir $(JAKETS__MAKEFILE))
-  CURLOUT := $(shell curl https://raw.githubusercontent.com/reshadi/jakets/master/Makefile --create-dirs -o $(JAKETS__MAKEFILE) )
-  $(info $(CURLOUT))
-  #GITOUT := wget https://raw.githubusercontent.com/reshadi/jakets/master/Makefile -o $(JAKETS__MAKEFILE)
-  # GITOUT := $(shell git clone -b master https://github.com/reshadi/jakets.git $(JAKETS__DIR))
-else
-  # JAKETS__DIR = $(dir $(JAKETS__MAKEFILE))
-  # GITOUT := $(shell git -C $(JAKETS__DIR) pull -r)
+  CMD_OUT += $(shell mkdir -p $(JAKETS__DIR) )
+  CMD_OUT += $(shell curl https://raw.githubusercontent.com/reshadi/jakets/v5.x.x/Makefile --create-dirs -o $(JAKETS__MAKEFILE) )
+  $(info CMD_OUT="$(CMD_OUT)" )
 endif
-$(info JAKETS__DIR="$(dir $(JAKETS__MAKEFILE)" ))
+$(info JAKETS__DIR="$(dir $(JAKETS__MAKEFILE))" )
+$(info JAKETS__MAKEFILE="$(JAKETS__MAKEFILE)" )
 
-#JAKE_TASKS += debug release
-#LOG_LEVEL?=0
-#EXPECTED_NODE_VERSION=v6.7.0
-#NODE__DIR?=./build/nodejs
+JAKE_TASKS += debug release
+LOG_LEVEL?=0
+# NODE__DIR?=./build/nodejs
 include $(JAKETS__MAKEFILE)
 
 #
