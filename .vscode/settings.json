@@ -11,4 +11,8 @@
     //   "when": "$(basename).ts"
     // }
   }
+  "search.exclude": {
+    "**/node_modules": false,
+    "**/bower_components": true
+  },"
 }

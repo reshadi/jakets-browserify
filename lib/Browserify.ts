@@ -51,8 +51,9 @@ export function BrowserifyTask(
   let depInfo = new CommandInfo({
     Name: name,
     Dir: Path.resolve(Util.LocalDir),
-    Output: output,
-    Inputs: inputs,
+    Command: "browserify",
+    Inputs: [inputs],
+    Outputs: [output],
     IsRelease: isRelease,
     Tsargs: tsargs,
     Options: options,
