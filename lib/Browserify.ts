@@ -4,7 +4,6 @@ import * as Browserify from "browserify";
 import * as Jakets from "jakets/lib/Jakets";
 
 import * as Util from "jakets/lib/Util";
-import * as Jake from "jakets/Jake";
 import { CommandInfo, ExtractFilesAndUpdateDependencyInfo } from "jakets/lib/Command";
 
 let RawExec = Util.CreateNodeExec(
@@ -34,7 +33,7 @@ export function Exec(inputs: string, output: string, callback, isRelease?: boole
     args += " " + options;
   }
 
-  Jake.Shell.mkdir("-p", Path.dirname(output));
+  jake.mkdirP(Path.dirname(output));
 
   RawExec(args, callback, isSilent);
 }
@@ -67,7 +66,7 @@ export function BrowserifyTask(
       , (error, stdout: string, stderror) => {
         ExtractFilesAndUpdateDependencyInfo(depInfo, error, stdout, stderror);
         this.complete();
-        Jake.LogTask(this, 2);
+        Jakets.Log("list done", 2);
       }
       , isRelease
       , tsargs
@@ -82,7 +81,7 @@ export function BrowserifyTask(
       , output
       , () => {
         this.complete();
-        Jake.LogTask(this, 2);
+        Jakets.Log("done", 2);
       }
       , isRelease
       , tsargs

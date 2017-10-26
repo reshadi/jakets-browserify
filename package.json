@@ -18,8 +18,11 @@
   "homepage": "https://github.com/reshadi/jakets-browserify",
   "dependencies": {
     "@types/browserify": "^12.0.33",
-    "browserify": "^13.3.0",
+    "@types/node": "^8.0.47",
+    "browserify": "^14.5.0",
     "bundle-collapser": "^1.3.0",
-    "jakets": "git+https://github.com/reshadi/jakets.git#v5.x.x"
+    "concat-stream": "^1.6.0",
+    "jakets": "git+https://github.com/reshadi/jakets.git#v6.x.x",
+    "tsify": "^3.0.3"
   }
 }
